@@ -441,3 +441,38 @@ a{
     }
    
 }
+
+@media (max-width: 1024px) {
+    .usa {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .usafrtxoebis {
+        width: 100%;
+    }
+
+    .logoss1, .logoss2 {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .logochild1, .logochild2, .logochild3, .logochild4 {
+        flex: 1 1 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .logochild1 img, .logochild2 img, .logochild3 img, .logochild4 img {
+        width: 30px;
+    }
+
+    .usafrtext h4 {
+        font-size: 1.5rem;
+    }
+
+    .usafrtext p {
+        font-size: 0.9rem;
+    }
+}
