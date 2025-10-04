@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    width: 100%;
+    height: 250px;
+    
+   
+ 
+    
+}
+
+
+
+.mainhead{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+  flex-wrap: wrap;
+}
+.logo img{
+    width: 200px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.checkingb{
+    background-color: #2840bf;
+    color: white;
+    border: none;
+    width: 270px;
+    height: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+   
+}
+
+a{
+   text-decoration: none;
+
+}
+
+
+.checking{
+    display: flex;
+    width: 80%;
+    padding-left: 18%;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.chasaweri{
+    width: 750px;
+    height:50px;
+} 
+
+.sazebneli{
+    width: 132px;
+    height: 50px;
+    background-color: #2840bf;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+footer{
+    background-color: #f4f5fc;
+    width: 100%;
+    height: 400px;
+    margin-top: 12%;
+ }
+
+
+ .foottext{
+    display: flex;
+ }
+.foottext p{
+   
+     margin-top: 8%;
+      margin-left: 3%;
+}
