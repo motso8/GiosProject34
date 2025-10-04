@@ -45,23 +45,38 @@ a{
 }
 
 
-.trainBox{
-    border: 1px solid black;
-    padding: 10px;
-    gap: 40px;
-    height: auto;
+.trainBox {
+    border: 1px solid #2840bf;
+    padding: 20px;
+    gap: 20px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    border-radius: 5px;
+    border-radius: 10px;
+    
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.trainBox h3{
-    margin-top: 10%;
+.trainBox:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.trainBox hvagon {
+    margin: 0 0 10px 0;
     color: #2840bf;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
-.trainBox p{
-   margin-top: 10%;
+
+.trainBox p {
+    margin: 0 0 15px 0;
+    color: #2840bf;
+    font-size: 1rem;
+    font-weight: 500;
 }
+
 .box{
     display: flex;
     flex-direction: column;
@@ -81,7 +96,7 @@ a{
     font-size: 30px;
  }
 .vagon{
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     width: 300px;
     display: inline-block;
     text-align: center;
@@ -136,3 +151,56 @@ a{
     color: black;
 }
 
+.trainBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 8%;
+        flex-direction: column;
+        width: 50%;
+        height: 20%;
+        margin-left: 25%;
+}
+
+.trainBox button{
+    background-color: #2840bf;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+    gap: 10px;
+
+}
+
+.seatBtn{
+    background-color: #D7E6F6;
+    border: none;
+    color: black;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.vagon{
+    width: 100%;
+    height: auto -5px;
+}
+
+.vagon h4{
+    font-size: 30px;
+}
+.hh2{
+    font-size: 40px;
+}
+
+.vagon{
+    border:none;
+}

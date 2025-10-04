@@ -1,130 +1,108 @@
+let phone = document.querySelector(".phone");
+let email = document.querySelector(".email");
+let peopleinputs = document.querySelector(".peopleinputs");
+let form = document.querySelector(".form");
 
-let mn = document.querySelector(".mn")
+// Load postObj from localStorage
+let postObj = JSON.parse(localStorage.getItem("postObj")) || { trainId: 0, date: "", email: "", phoneNumber: "", people: [] };
 
-let postObj = {
-    trainId: 0,
-    date: "2025-03-11T13:33:18.727Z",
-    email: "string",
-    phoneNumber: "string",
-    people: []
-  }
+// Render passenger inputs
+function renderPplInputs(arr){
+    peopleinputs.innerHTML = ""; 
+    arr.forEach((el, index) => {
+        let passengerDiv = document.createElement("div");
+        passengerDiv.className = "passenger-block";
 
+        let title = document.createElement("h4");
+        title.innerText = `Passenger ${index + 1}`;
+        title.className = "passenger-title";
+        passengerDiv.appendChild(title);
 
-let fromcity = window.location.href.split("from=")[1].split("&")[0]
+        // Name
+        let nameDiv = document.createElement("div");
+        nameDiv.className = "input-group";
+        let nameInp = document.createElement("input");
+        nameInp.className = "NameInp";
+        nameInp.placeholder = "Name";
+        nameInp.value = el.name || "";
+        nameDiv.appendChild(nameInp);
 
-let tocity = window.location.href.split("to=")[1].split("&")[0]
+        // Surname
+        let surnameDiv = document.createElement("div");
+        surnameDiv.className = "input-group";
+        let lastNameInp = document.createElement("input");
+        lastNameInp.className = "lastNameInp";
+        lastNameInp.placeholder = "Surname";
+        lastNameInp.value = el.surname || "";
+        surnameDiv.appendChild(lastNameInp);
 
-let date = window.location.href.split("date=")[1]
+        // ID Number
+        let idDiv = document.createElement("div");
+        idDiv.className = "input-group";
+        let idNumberInp = document.createElement("input");
+        idNumberInp.className = "idNumberInp";
+        idNumberInp.placeholder = "ID Number";
+        idNumberInp.value = el.idNumber || "";
+        idDiv.appendChild(idNumberInp);
 
-console.log(fromcity)
-fetch(`https://railway.stepprojects.ge/api/getdeparture?from=${fromcity}&to=${tocity}&date=${date}`)
-.then(x => x.json())
-.then(x => randering(x[0]))
+        passengerDiv.appendChild(nameDiv);
+        passengerDiv.appendChild(surnameDiv);
+        passengerDiv.appendChild(idDiv);
 
-function randering(obj){
-    console.log(obj)
-    let box = document.createElement("div");
-    box.innerHTML = `
-        <h2 class"hh2"> დრო - ${obj.date} </h2>
-        <p class"pp2"> მიმართულება - ${obj.source} - ${obj.destination}</p>
-        
-
-     `
-     let hh2 = document.querySelector(".hh2")
-     let pp2 = document.querySelector(".pp2")
-
-     
-     box.className = "box"
-  
-
-     obj.trains.forEach(el => {
-        let train = document.createElement("div")
-     
-let bbttnn = document.createElement("button")
-bbttnn.className = "bbttnn"
-bbttnn.innerText = "დაჯავშნა"
-bbttnn.addEventListener("click", function(){
-       
-    window.location.href=`./index3.html`
-})
-
-
-
-        train.innerHTML =`
-        
-                <h3>გასვლა ${el.departure} - ჩასვლა ${el.arrive} </h3>       
-                <p> ნომერი - ${el.number}</p>
-               
-                
-             
-            `
-            
-        
-         train.className="trainBox"
-    
-        el.vagons.forEach(elvag =>{
-            let vagon = document.createElement("div")
-            vagon.innerHTML = `<h3>${elvag.name}</h3> `
-            vagon.className = "vagon"
-            
-
-            elvag.seats.forEach(elSeat => {
-                let seat = document.createElement("button")
-                
-                seat.innerText = `${elSeat.number} - ${elSeat.price} ლ  `  
-                seat.addEventListener('click', function() {
-                    if(seat.style.backgroundColor != "green"){
-                        seat.style.backgroundColor = "green"
-                        seat.style.color = "#2596be"
-                            postObj.trainId = el.number
-                            postObj.date = date
-                            postObj.people.push({
-                                seatId : elSeat.seatId,
-                                name: "string",
-                                surname: "string",
-                                idNumber: "string",
-                                status: "string",
-                                payoutCompleted: true
-                            })
-                           localStorage.setItem("postObj", JSON.stringify(postObj))
-                    }
-                    else if(seat.style.backgroundColor = "white"){
-                        seat.style.backgroundColor = "#2596be"
-                        seat.style.color = "black"
-
-                    }
-                           
-                    else {
-                           seat.style.backgroundColor = "white"
-                           seat.style.color = "green"
-                        postObj.people= postObj.people.filter(el => 
-                            el.seatId != elSeat.seatId
-                        )
-                        console.log(postObj)
-                        localStorage.setItem("postObj", JSON.stringify(postObj))
-                    }
-
-
-
- 
-                })
-
-
-                vagon.appendChild(seat)
-
-
-            } )
-            
-            train.appendChild(vagon)
-         train.appendChild(bbttnn)
-
-        })
-
-        box.appendChild(train)
-        
-     });
-
-     mn.appendChild(box)
+        peopleinputs.appendChild(passengerDiv);
+    });
 }
 
+// If no passengers yet, create one empty
+if(postObj.people.length === 0) postObj.people.push({seatId:0, name:"", surname:"", idNumber:"", status:"string", payoutCompleted:true});
 
+renderPplInputs(postObj.people);
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    postObj.email = email.value;
+    postObj.phoneNumber = phone.value; // API expects phoneNumber
+
+    // Collect input values dynamically
+    let passengerBlocks = document.querySelectorAll(".passenger-block");
+    postObj.people = []; // reset
+
+    passengerBlocks.forEach((block, index) => {
+        let name = block.querySelector(".NameInp").value.trim();
+        let surname = block.querySelector(".lastNameInp").value.trim();
+        let idNumber = block.querySelector(".idNumberInp").value.trim();
+        let seatId = JSON.parse(localStorage.getItem("postObj"))?.people[index]?.seatId || 0;
+
+        postObj.people.push({
+            seatId: seatId,
+            name: name,
+            surname: surname,
+            idNumber: idNumber,
+            status: "string",
+            payoutCompleted: true
+        });
+    });
+
+    console.log("POST DATA:", postObj); // check before sending
+
+    fetch(`https://railway.stepprojects.ge/api/tickets/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postObj)
+    })
+    .then(resp => resp.json().then(data => ({status: resp.status, body: data})))
+    .then(({status, body}) => {
+        if(status === 200) {
+            alert("ბილეთი წარმატებით დაიჯავშნა");
+            setTimeout(() => window.location.href = "./index.html", 500);
+        } else {
+            console.log("API ERROR:", body);
+            alert("Error registering ticket: " + (body.message || JSON.stringify(body)));
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Network or server error");
+    });
+});
