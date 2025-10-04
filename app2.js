@@ -102,7 +102,5 @@ form.addEventListener("submit", function(e){
         }
     })
     .catch(err => {
-        console.error(err);
-        alert("Network or server error");
     });
 });
