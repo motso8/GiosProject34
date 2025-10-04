@@ -438,12 +438,14 @@ a{
     }
     .dadj{
         height: auto;
+        width: auto;
     }
    
 }
 
 @media (max-width: 1024px) {
     .usa {
+        text-align: center;
         flex-direction: column;
         align-items: center;
     }
